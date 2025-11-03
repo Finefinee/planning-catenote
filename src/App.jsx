@@ -5,6 +5,7 @@ import Editor from './components/Editor';
 import './App.css';
 
 function App() {
+
   const [notes, setNotes] = useState(() => JSON.parse(localStorage.getItem('notes')) || []);
   const [categories, setCategories] = useState(() => JSON.parse(localStorage.getItem('categories')) || []);
   
@@ -25,19 +26,25 @@ function App() {
 
   const handleAddCategory = () => {
     const name = prompt("새 카테고리 이름을 입력하세요:");
-    if (name) {
-      const newCategory = { id: Date.now(), name };
+    // 공백 확인
+    if (name && name.trim() !== '') {
+      const newCategory = { id: Date.now(), name: name.trim() };
       const newCategories = [...categories, newCategory];
       setCategories(newCategories);
-      if (categories.length === 0) setActiveCategory(newCategory.id);
+      if (categories.length === 0) {
+        setActiveCategory(newCategory.id);
+      }
     }
   };
 
   const handleEditCategory = (categoryId) => {
     const categoryToEdit = categories.find(c => c.id === categoryId);
     const newName = prompt("카테고리 이름을 수정하세요:", categoryToEdit.name);
-    if (newName && newName !== categoryToEdit.name) {
-      setCategories(categories.map(c => c.id === categoryId ? { ...c, name: newName } : c));
+    // 새 이름이 존재하고, 공백 제거 후 비어있지 않으며, 기존 이름과 다를 경우에만 수정
+    if (newName && newName.trim() !== '' && newName.trim() !== categoryToEdit.name) {
+      setCategories(categories.map(c => 
+        c.id === categoryId ? { ...c, name: newName.trim() } : c
+      ));
     }
   };
   

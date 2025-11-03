@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * 개별 글의 내용을 보여주고 편집하는 컴포넌트
  * @param {object} props
