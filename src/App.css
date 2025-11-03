@@ -229,6 +229,33 @@ body {
   color: var(--background-color);
 }
 
+.editor-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  gap: 0.5rem; /* ★ 버튼들 사이의 간격 추가 */
+}
+
+/* '안읽음' 버튼 스타일 (새로 추가) */
+.unread-note-btn {
+  background: transparent;
+  border: 1px solid #58a6ff; /* 파란색 */
+  color: #58a6ff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.unread-note-btn:hover {
+  background-color: #58a6ff;
+  color: var(--background-color);
+}
+
 .editor-title-input {
   width: 100%;
   border: none;

@@ -5,7 +5,7 @@
  * @param {Function} props.onUpdateNote - 글의 필드(제목, 내용) 업데이트 핸들러
  * @param {Function} props.onDeleteNote - 글 삭제 핸들러
  */
-function Editor({ activeNote, onUpdateNote, onDeleteNote }) {
+function Editor({ activeNote, onUpdateNote, onDeleteNote, onUnreadNote }) {
   
   if (!activeNote) {
     return (
@@ -18,6 +18,9 @@ function Editor({ activeNote, onUpdateNote, onDeleteNote }) {
   return (
     <div className="editor-container">
       <div className="editor-header">
+        <button className="unread-note-btn" onClick={() => onUnreadNote(activeNote.id)}>
+          안읽음
+        </button>
         <button className="delete-note-btn" onClick={() => onDeleteNote(activeNote.id)}>
           삭제
         </button>

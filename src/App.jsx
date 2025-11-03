@@ -97,6 +97,11 @@ function App() {
     }
   };
 
+  const handleUnreadNote = (noteId) => {
+    setActiveNoteId(noteId);
+    setNotes(notes.map(note => note.id === noteId ? { ...note, unread: true } : note));
+  }
+
   const notesForActiveCategory = activeCategory 
     ? notes.filter(note => note.categoryId === activeCategory).sort((a, b) => b.id - a.id)
     : [];
@@ -124,6 +129,7 @@ function App() {
           activeNote={activeNote}
           onUpdateNote={handleUpdateNote}
           onDeleteNote={handleDeleteNote}
+          onUnreadNote={handleUnreadNote}
         />
       </main>
     </div>
