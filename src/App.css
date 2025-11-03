@@ -154,7 +154,7 @@ body {
 
 .note-list-item {
   position: relative; /* ★ 가상 요소 위치의 기준점 */
-  padding: 1rem 1.5rem 1rem 2.5rem; /* ★ 점이 들어갈 왼쪽 공간 확보 */
+  padding: 1rem 2.5rem 1rem 2.5rem; /* ★ 점이 들어갈 왼쪽 공간 확보 */
   cursor: pointer;
   border-bottom: 1px solid var(--border-color);
   user-select: none;
@@ -179,7 +179,16 @@ body {
 }
 
 .note-title { margin: 0 0 0.5rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.note-excerpt { font-size: 0.9rem; color: var(--accent-color); margin: 0; }
+.note-excerpt {
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  margin: 0;
+  max-width: 80%;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .note-list-empty { padding: 2rem; text-align: center; color: var(--accent-color); }
 
 /* Editor 스타일 */
