@@ -179,7 +179,7 @@ body {
   line-height: 1;
 }
 
-.note-title { margin: 0 0 0.5rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.note-title { margin: 0 0 0.5rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80%; }
 .note-excerpt {
   font-size: 0.9rem;
   color: var(--accent-color);
