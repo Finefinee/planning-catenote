@@ -165,6 +165,7 @@ body {
 /* ★ 읽지 않은 글의 제목을 굵게 */
 .note-list-item.unread .note-title { 
   font-weight: 800; 
+  max-width: 80%;
 }
 
 /* ★ 읽지 않은 글 앞에 파란색 점 추가 */
