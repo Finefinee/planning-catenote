@@ -291,6 +291,7 @@ body {
 .new-note-btn:focus,
 .add-category-btn:focus,
 .delete-note-btn:focus,
+.unread-note-btn:focus,
 .category-actions button:focus,
 .category-item:focus,
 .note-list-item:focus {
