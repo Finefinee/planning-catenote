@@ -133,6 +133,16 @@ const CategoryActions = styled.div`
   }
 `;
 
+const UnreadCount = styled.span`
+  background-color: ${props => props.theme.colors.accent};
+  color: ${props => props.theme.colors.background};
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 8px;
+`;
+
 function Sidebar({ categories, onNewNote, onAddCategory, activeCategory, onSelectCategory, onEditCategory, onDeleteCategory }) {
   const [hoveredCategoryId, setHoveredCategoryId] = useState(null);
 
@@ -164,11 +174,13 @@ function Sidebar({ categories, onNewNote, onAddCategory, activeCategory, onSelec
             >
               <CategoryName>{cat.name}</CategoryName>
               
-              {hoveredCategoryId === cat.id && (
+              {hoveredCategoryId === cat.id ? (
                 <CategoryActions>
                   <button onClick={(e) => { e.stopPropagation(); onEditCategory(cat.id); }}>수정</button>
                   <button onClick={(e) => { e.stopPropagation(); onDeleteCategory(cat.id); }}>삭제</button>
                 </CategoryActions>
+              ) : (
+                cat.unread > 0 && <UnreadCount>{cat.unread}</UnreadCount>
               )}
             </CategoryItem>
           ))}

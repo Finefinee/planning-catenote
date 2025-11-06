@@ -116,12 +116,18 @@ function App() {
 
   const activeNote = notes.find(n => n.id === activeNoteId);
 
+  // 각 카테고리에 unread 카운트 추가
+  const categoriesWithUnread = categories.map(category => ({
+    ...category,
+    unread: notes.filter(note => note.categoryId === category.id && note.unread).length,
+  }));
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <AppContainer>
         <Sidebar
-          categories={categories}
+          categories={categoriesWithUnread}
           onNewNote={handleNewNote}
           onAddCategory={handleAddCategory}
           onEditCategory={handleEditCategory}
