@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Sidebar from './components/Sidebar';
 import NoteList from './components/NoteList';
 import Editor from './components/Editor';
-import { GlobalStyles, theme } from './styles/GlobalStyles';
+import { GlobalStyles, theme } from './styles/GlobalStyles.js';
 
 const AppContainer = styled.div`
   display: flex;
