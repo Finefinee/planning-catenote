@@ -1,49 +1,145 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const EditorContainer = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+`;
+
+const EditorPlaceholder = styled.div`
+  flex-grow: 1;
+`;
+
+const EditorHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid ${props => props.theme.colors.border};
+  gap: 0.5rem;
+`;
+
+const UnreadNoteBtn = styled.button`
+  background: transparent;
+  border: 1px solid ${props => props.theme.colors.blue};
+  color: ${props => props.theme.colors.blue};
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: ${props => props.theme.colors.blue};
+    color: ${props => props.theme.colors.background};
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const DeleteNoteBtn = styled.button`
+  background: transparent;
+  border: 1px solid ${props => props.theme.colors.red};
+  color: ${props => props.theme.colors.red};
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: ${props => props.theme.colors.red};
+    color: ${props => props.theme.colors.background};
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const EditorTitleInput = styled.input`
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  color: ${props => props.theme.colors.foreground};
+  font-size: 2rem;
+  font-weight: bold;
+  padding-top: 2rem;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: ${props => props.theme.colors.accent};
+  }
+`;
+
+const EditorTextarea = styled.textarea`
+  flex-grow: 1;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  color: ${props => props.theme.colors.foreground};
+  font-size: 1.1rem;
+  line-height: 1.7;
+  padding-top: 2rem;
+  resize: none;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: ${props => props.theme.colors.accent};
+  }
+`;
+
 /**
  * 개별 글의 내용을 보여주고 편집하는 컴포넌트
- * @param {object} props
- * @param {object|null} props.activeNote - 현재 보고 있는 글 객체
- * @param {Function} props.onUpdateNote - 글의 필드(제목, 내용) 업데이트 핸들러
- * @param {Function} props.onDeleteNote - 글 삭제 핸들러
  */
 function Editor({ activeNote, onUpdateNote, onDeleteNote, onUnreadNote }) {
-  
   if (!activeNote) {
     return (
-      <div className="editor-container">
-        <div className="editor-placeholder"></div>
-      </div>
+      <EditorContainer>
+        <EditorPlaceholder />
+      </EditorContainer>
     );
   }
 
   return (
-    <div className="editor-container">
-      <div className="editor-header">
-        <button className="unread-note-btn" onClick={() => onUnreadNote(activeNote.id)}>
+    <EditorContainer>
+      <EditorHeader>
+        <UnreadNoteBtn onClick={() => onUnreadNote(activeNote.id)}>
           안읽음
-        </button>
-        <button className="delete-note-btn" onClick={() => onDeleteNote(activeNote.id)}>
+        </UnreadNoteBtn>
+        <DeleteNoteBtn onClick={() => onDeleteNote(activeNote.id)}>
           삭제
-        </button>
-      </div>
+        </DeleteNoteBtn>
+      </EditorHeader>
       
-      {/* 제목 입력 필드 추가 */}
-      <input
+      <EditorTitleInput
         type="text"
-        className="editor-title-input"
         value={activeNote.title}
         onChange={(e) => onUpdateNote(activeNote.id, 'title', e.target.value)}
         placeholder="제목을 입력하세요"
-        autoFocus // 새 글 작성 시 제목에 바로 포커스
+        autoFocus
       />
 
-      <textarea
-        key={activeNote.id} // 노트가 바뀌어도 content에 집중할 수 있도록 key는 유지
-        className="editor-textarea"
+      <EditorTextarea
+        key={activeNote.id}
         value={activeNote.content}
         onChange={(e) => onUpdateNote(activeNote.id, 'content', e.target.value)}
         placeholder="내용을 입력하세요..."
       />
-    </div>
+    </EditorContainer>
   );
 }
 
