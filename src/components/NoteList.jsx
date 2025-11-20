@@ -70,9 +70,10 @@ const NoteListItem = styled.div`
     &::before {
       content: '•';
       position: absolute;
-      left: 16rem;
-      top: 1rem;
-      font-size: 3rem;
+      left: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 4rem;
       color: ${props.theme.colors.blue};
       line-height: 1;
     }
@@ -86,6 +87,7 @@ const NoteTitle = styled.h3`
   text-overflow: ellipsis;
   max-width: 80%;
   font-weight: 800;
+  color: ${props => props.$unread ? props.theme.colors.blue : 'inherit'};
 `;
 
 const NoteExcerpt = styled.p`
