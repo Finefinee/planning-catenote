@@ -70,7 +70,7 @@ const NoteListItem = styled.div`
     &::before {
       content: '•';
       position: absolute;
-      left: 1.5rem;
+      left: 16rem;
       top: 50%;
       transform: translateY(-50%);
       font-size: 4rem;
