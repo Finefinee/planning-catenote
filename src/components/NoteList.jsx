@@ -71,14 +71,11 @@ const NoteListItem = styled.div`
       content: '•';
       position: absolute;
       right: 1rem;
-      top: 50%;
+      top: 45%;
       transform: translateY(-50%);
       font-size: 4rem;
       color: ${props.theme.colors.blue};
       line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
   `}
 `;
@@ -111,32 +108,32 @@ const NoteListEmpty = styled.div`
 
 function NoteList({ notes, activeNoteId, onSelectNote, showUnreadOnly, setShowUnreadOnly }) {
   return (
-      <NoteListContainer>
-        <NoteListHeader>
-          <strong>글 목록</strong>
-          <div>
-            <UnreadFilterBtn onClick={() => setShowUnreadOnly(!showUnreadOnly)}>
-              {showUnreadOnly ? '모두 보기' : '안 읽은 글만 보기'}
-            </UnreadFilterBtn>
-          </div>
-        </NoteListHeader>
+    <NoteListContainer>
+      <NoteListHeader>
+        <strong>글 목록</strong>
+        <div>
+          <UnreadFilterBtn onClick={() => setShowUnreadOnly(!showUnreadOnly)}>
+            {showUnreadOnly ? '모두 보기' : '안 읽은 글만 보기'}
+          </UnreadFilterBtn>
+        </div>
+      </NoteListHeader>
 
-        {notes.length === 0 ? (
-            <NoteListEmpty>이 카테고리에는 글이 없습니다.</NoteListEmpty>
-        ) : (
-            notes.map((note) => (
-                <NoteListItem
-                    key={note.id}
-                    $unread={note.unread}
-                    $isActive={note.id === activeNoteId}
-                    onClick={() => onSelectNote(note.id)}
-                >
-                  <NoteTitle $unread={note.unread}>{note.title || '새로운 글'}</NoteTitle>
-                  <NoteExcerpt>{note.content ? note.content.substring(0, 40) + '...' : '내용 없음'}</NoteExcerpt>
-                </NoteListItem>
-            ))
-        )}
-      </NoteListContainer>
+      {notes.length === 0 ? (
+        <NoteListEmpty>이 카테고리에는 글이 없습니다.</NoteListEmpty>
+      ) : (
+        notes.map((note) => (
+          <NoteListItem
+            key={note.id}
+            $unread={note.unread}
+            $isActive={note.id === activeNoteId}
+            onClick={() => onSelectNote(note.id)}
+          >
+            <NoteTitle $unread={note.unread}>{note.title || '새로운 글'}</NoteTitle>
+            <NoteExcerpt>{note.content ? note.content.substring(0, 40) + '...' : '내용 없음'}</NoteExcerpt>
+          </NoteListItem>
+        ))
+      )}
+    </NoteListContainer>
   );
 }
 
