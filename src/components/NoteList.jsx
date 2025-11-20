@@ -72,7 +72,7 @@ const NoteListItem = styled.div`
       position: absolute;
       left: 16rem;
       top: 1rem;
-      font-size: 5rem;
+      font-size: 3rem;
       color: ${props.theme.colors.blue};
       line-height: 1;
     }
