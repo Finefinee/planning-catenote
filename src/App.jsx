@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Sidebar from './components/Sidebar';
 import NoteList from './components/NoteList';
 import Editor from './components/Editor';
-import { GlobalStyles, theme } from './styles/GlobalStyles.js';
+import { GlobalStyles, darkTheme, lightTheme } from './styles/GlobalStyles.js';
 
 const AppContainer = styled.div`
   display: flex;
@@ -21,6 +21,11 @@ const MainContent = styled.main`
 function App() {
   const [notes, setNotes] = useState(() => JSON.parse(localStorage.getItem('notes')) || []);
   const [categories, setCategories] = useState(() => JSON.parse(localStorage.getItem('categories')) || []);
+
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('isDarkMode');
+    return saved ? JSON.parse(saved) : true;
+  });
 
   const [showUnreadOnly, setShowUnreadOnly] = useState(() => {
     const saved = localStorage.getItem('showUnreadOnly');
@@ -45,6 +50,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem('showUnreadOnly', JSON.stringify(showUnreadOnly));
   }, [showUnreadOnly]);
+
+  useEffect(() => {
+    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
 
   // category handlers
   const handleAddCategory = () => {
@@ -123,7 +132,7 @@ function App() {
   }));
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <GlobalStyles />
       <AppContainer>
         <Sidebar
@@ -134,6 +143,8 @@ function App() {
           onDeleteCategory={handleDeleteCategory}
           activeCategory={activeCategory}
           onSelectCategory={setActiveCategory}
+          isDarkMode={isDarkMode}
+          onToggleTheme={() => setIsDarkMode(!isDarkMode)}
         />
 
         <MainContent>

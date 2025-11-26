@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const SidebarContainer = styled.aside`
   width: ${props => props.theme.sizes.sidebarWidth};
   min-width: ${props => props.theme.sizes.sidebarWidth};
-  background-color: #111;
+  background-color: ${props => props.theme.colors.sidebarBg};
   border-right: 1px solid ${props => props.theme.colors.border};
   padding: 1rem;
   display: flex;
@@ -91,7 +91,7 @@ const CategoryItem = styled.li`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: ${props => props.$isActive ? '#2a2a2a' : 'transparent'};
+  background-color: ${props => props.$isActive ? props.theme.colors.activeItemBg : 'transparent'};
 
   &:hover {
     background-color: ${props => props.theme.colors.hoverBg};
@@ -143,7 +143,62 @@ const UnreadCount = styled.span`
   margin-left: 8px;
 `;
 
-function Sidebar({ categories, onNewNote, onAddCategory, activeCategory, onSelectCategory, onEditCategory, onDeleteCategory }) {
+const ThemeToggleContainer = styled.div`
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid ${props => props.theme.colors.border};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const ThemeToggleLabel = styled.span`
+  font-size: 0.9rem;
+  color: ${props => props.theme.colors.accent};
+`;
+
+const ToggleSwitch = styled.label`
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  cursor: pointer;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+`;
+
+const Slider = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: ${props => props.$isDark ? props.theme.colors.accent : '#ccc'};
+  border-radius: 26px;
+  transition: 0.3s;
+
+  &:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: ${props => props.$isDark ? '26px' : '4px'};
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+
+  ${ToggleSwitch}:hover & {
+    background-color: ${props => props.$isDark ? props.theme.colors.blue : '#999'};
+  }
+`;
+
+function Sidebar({ categories, onNewNote, onAddCategory, activeCategory, onSelectCategory, onEditCategory, onDeleteCategory, isDarkMode, onToggleTheme }) {
   const [hoveredCategoryId, setHoveredCategoryId] = useState(null);
 
   return (
@@ -186,6 +241,18 @@ function Sidebar({ categories, onNewNote, onAddCategory, activeCategory, onSelec
           ))}
         </ul>
       </CategoryNav>
+
+      <ThemeToggleContainer>
+        <ThemeToggleLabel>{isDarkMode ? '다크모드 ON/OFF' : '다크모드 ON/OFF'}</ThemeToggleLabel>
+        <ToggleSwitch>
+          <input 
+            type="checkbox" 
+            checked={isDarkMode} 
+            onChange={onToggleTheme}
+          />
+          <Slider $isDark={isDarkMode} />
+        </ToggleSwitch>
+      </ThemeToggleContainer>
     </SidebarContainer>
   );
 }

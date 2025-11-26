@@ -56,7 +56,7 @@ const NoteListItem = styled.div`
   cursor: pointer;
   border-bottom: 1px solid ${props => props.theme.colors.border};
   user-select: none;
-  background-color: ${props => props.$isActive ? '#2a2a2a' : 'transparent'};
+  background-color: ${props => props.$isActive ? props.theme.colors.activeItemBg : 'transparent'};
 
   &:hover {
     background-color: ${props => props.theme.colors.hoverBg};
